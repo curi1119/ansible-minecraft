@@ -1,0 +1,13 @@
+[Unit]
+Description=Minecraft Server
+After=network-online.target
+
+[Service]
+ExecStart=/bin/bash {{minecraft.dest}}/run.sh
+WorkingDirectory={{minecraft.dest}}
+Restart=always
+User=minecraft
+Group=minecraft
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+---
+user:
+  username: minecraft
+  homedir: /home/minecraft
+
+auth_users:
+  - name: curi
+    key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDlma6vkUEKJiH6A1Tx8oDm6mTTdpYBEgIfF9lC843asSUSvVBGu/vvmu/MOUu0RlqQjTNx/EIM1KVCKDTrypG5uzo51Ww8PgYi3x3tU0CDtw9vug6VaWkXCcZtAZDthl+bPwjy385RX/ewJXejAbFUPqmscsDbcIfeIMYuE24Nw0+nGPXe6csTPyFS56uKzH/7jslZnhE6QgOX2oWqMS6P+NKgc/9uqmxu3v2JD1aK3nZVi1wjnjL5tiXThnw3efh337CY/kgjD1+S+A1r1AvU2iLnwHvLC9jCjmrrygxi6Srq/PhtKCBP4FIeLhoN0vw0aRYKgWHV398Uu/tanRyf curi@macbook.local
+
+limits_configs:
+  - regexp: root soft nofile 65536
+    line: root soft nofile 65536
+  - regexp: root hard nofile 65536
+    line: root hard nofile 65536
+  - regexp: '\* soft nofile 65536'
+    line: '* soft nofile 65536'
+  - regexp: '\* hard nofile 65536'
+    line: '* hard nofile 65536'

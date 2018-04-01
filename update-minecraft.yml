@@ -1,0 +1,26 @@
+---
+- name: Install Minecraft
+  hosts: minecraft
+  vars:
+    user:
+      username: minecraft
+    minecraft:
+      dest: /opt/minecraft
+      url: https://launcher.mojang.com/mc/game/1.12.2/server/886945bfb2b978778c3a0288fd7fab09d315b25f/server.jar
+      memory: 1024
+
+  handlers:
+    - name: restart minecraft
+      become: yes
+      systemd:
+        name: minecraft
+        state: restarted
+        enabled: yes
+
+  tasks:
+    - name: put run.sh
+      template: src=run.sh.j2 dest={{minecraft.dest}}/run.sh mode=a+x
+
+    - name: rewrite server.propaties
+      template: src=server.properties.j2 dest={{minecraft.dest}}/server.properties
+      notify: restart minecraft

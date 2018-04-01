@@ -1,0 +1,21 @@
+---
+
+- name: Add sudoers users to wheel group
+  user: name={{user.username}} groups=wheel append=yes state=present createhome=yes
+
+- name: mkdir .ssh
+  file: dest={{user.homedir}}/.ssh/ state=directory owner={{user.username}} group={{user.username}} mode=700
+
+- name: generate authorized_keys
+  template: src=authorized_keys.j2 dest={{user.homedir}}/.ssh/authorized_keys
+
+- name: touch ~/.ssh/authorized keys as 600
+  file: dest={{user.homedir}}/.ssh/authorized_keys state=touch owner={{user.username}} group={{user.username}} mode=600
+  register: touch_log
+  changed_when: touch_log.diff.before.state != "file"
+
+- name: copy id_rsa
+  copy: src=id_rsa dest={{user.homedir}}/.ssh/id_rsa
+
+- name: copy id_rsa.pub
+  copy: src=id_rsa.pub dest={{user.homedir}}/.ssh/id_rsa.pub

@@ -1,0 +1,21 @@
+---
+
+- name: yum update
+  yum: state=latest name=*
+
+## AmazonLinux2
+- name: set locale to LANG=ja_JP.utf8
+  shell: localectl set-locale LANG=ja_JP.utf8
+  changed_when: false
+  check_mode: no
+
+- name: set timezone to Asia/Tokyo
+  shell: timedatectl set-timezone Asia/Tokyo
+  changed_when: false
+  check_mode: no
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
